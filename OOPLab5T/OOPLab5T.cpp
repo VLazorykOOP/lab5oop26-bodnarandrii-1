@@ -4,28 +4,25 @@
 
 using namespace std;
 
-// ============================================================
-// ЗАВДАННЯ 1.1: СТУДЕНТ ТА СТУДЕНТ-ДИПЛОМНИК (СПАДКУВАННЯ)
-// ============================================================
 class Student {
 protected:
-    string surname, name, patronymic; // ПІБ розбито на поля
+    string surname, name, pobatykovi; 
     int course;
     long long id;
 public:
-    Student() : surname(""), name(""), patronymic(""), course(1), id(0) {
-        cout << "[System] Student() - викликано конструктор за замовчуванням" << endl;
+    Student() : surname(""), name(""),pobatykovi(""), course(1), id(0) {
+        cout << "Student() - викликано конструктор за замовчуванням" << endl;
     }
     
     Student(string s, string n, string p, int c, long long i) 
-        : surname(s), name(n), patronymic(p), course(c), id(i) {
-        cout << "[System] Student(параметри) - створено базовий клас" << endl;
+        : surname(s), name(n),pobatykovi(p), course(c), id(i) {
+        cout << "Student(параметри) - створено базовий клас" << endl;
     }
     
-    virtual ~Student() { cout << "[System] ~Student() - вилучення базового класу" << endl; }
+    virtual ~Student() { cout << "~Student() - вилучення базового класу" << endl; }
 
     virtual void print() const {
-        cout << "ПIБ: " << surname << " " << name << " " << patronymic 
+        cout << "ПIБ: " << surname << " " << name << " " <<pobatykovi 
              << " | Курс: " << course << " | ID: " << id << endl;
     }
     void setID(long long new_id) { id = new_id; }
@@ -35,16 +32,16 @@ class DiplomaStudent : public Student {
     string topic;
 public:
     DiplomaStudent() : Student(), topic("") {
-        cout << "[System] DiplomaStudent() - конструктор за замовчуванням" << endl;
+        cout << "DiplomaStudent() - конструктор за замовчуванням" << endl;
     }
     
     // Виклик конструктора базового класу
     DiplomaStudent(string s, string n, string p, int c, long long i, string t) 
         : Student(s, n, p, c, i), topic(t) {
-        cout << "[System] DiplomaStudent(параметри) - створено дочiрнiй клас" << endl;
+        cout << "DiplomaStudent(параметри) - створено дочiрнiй клас" << endl;
     }
     
-    ~DiplomaStudent() { cout << "[System] ~DiplomaStudent() - вилучення дочiрнього класу" << endl; }
+    ~DiplomaStudent() { cout << "~DiplomaStudent() - вилучення дочiрнього класу" << endl; }
 
     void print() const override {
         Student::print();
@@ -85,9 +82,7 @@ void testTask1() {
     ds.print();
 }
 
-// ============================================================
-// ЗАВДАННЯ 2.1: КIМНАТА ТА КВАРТИРА (КОМПОЗИЦIЯ ТА IЄРАРХIЯ)
-// ============================================================
+
 class Room {
     float area;
 public:
@@ -106,7 +101,7 @@ public:
     
     OneRoomApartment(float r_area, float k_area, int fl) 
         : room(r_area), kitchenArea(k_area), floor(fl) {
-        cout << "[System] OneRoomApartment(параметри) - базовий клас створено" << endl;
+        cout << "OneRoomApartment(параметри) - базовий клас створено" << endl;
     }
     
     virtual void print() const {
@@ -122,10 +117,10 @@ public:
     
     CityApartment(float r, float k, int f, string c) 
         : OneRoomApartment(r, k, f), city(c) {
-        cout << "[System] CityApartment(параметри) - дочiрнiй клас створено" << endl;
+        cout << "CityApartment(параметри) - дочiрнiй клас створено" << endl;
     }
     
-    ~CityApartment() { cout << "[System] ~CityApartment() - вилучення" << endl; }
+    ~CityApartment() { cout << "~CityApartment() - вилучення" << endl; }
 
     void print() const override {
         cout << "Мiсто: " << city << " | ";
@@ -151,16 +146,14 @@ void testTask2() {
     flat.print();
 }
 
-// ============================================================
-// ЗАВДАННЯ 3.1: СПОРТИВНА ГРА (ВВЕДЕННЯ/ВИВЕДЕННЯ З ПОТОКУ)
-// ============================================================
+
 class SportGame {
 protected:
     string* name;
 public:
     SportGame(string n = "") : name(new string(n)) {}
-    SportGame(const SportGame& other) : name(new string(*other.name)) { cout << "[System] SportGame: Конструктор копiювання" << endl; }
-    SportGame(SportGame&& other) noexcept : name(other.name) { other.name = nullptr; cout << "[System] SportGame: Конструктор перенесення" << endl; }
+    SportGame(const SportGame& other) : name(new string(*other.name)) { cout << "SportGame: Конструктор копiювання" << endl; }
+    SportGame(SportGame&& other) noexcept : name(other.name) { other.name = nullptr; cout << "SportGame: Конструктор перенесення" << endl; }
     
     virtual ~SportGame() { delete name; }
 
@@ -192,12 +185,12 @@ public:
     Football() : SportGame(), stadium(new string("")) {}
     
     Football(const Football& other) : SportGame(other), stadium(new string(*other.stadium)) {
-        cout << "[System] Football: Конструктор копiювання" << endl;
+        cout << "Football: Конструктор копiювання" << endl;
     }
     
     Football(Football&& other) noexcept : SportGame(std::move(other)), stadium(other.stadium) {
         other.stadium = nullptr;
-        cout << "[System] Football: Конструктор перенесення" << endl;
+        cout << "Football: Конструктор перенесення" << endl;
     }
 
     ~Football() { delete stadium; }
@@ -236,9 +229,7 @@ void testTask3() {
     cout << "Об'єкт f3 пiсля перенесення: " << f3 << endl;
 }
 
-// ============================================================
-// ГОЛОВНЕ МЕНЮ
-// ============================================================
+
 int main() {
     setlocale(LC_CTYPE, "ukr");
     char choice;
