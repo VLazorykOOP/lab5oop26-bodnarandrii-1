@@ -234,7 +234,7 @@ int main() {
     char choice;
 
     do {
-        cout << "\n   MAIN MENU" << endl;
+        cout << "\n    MAIN MENU  " << endl;
         cout << "1. Task 1.1 " << endl;
         cout << "2. Task 2.1 " << endl;
         cout << "3. Task 3.1 " << endl;
